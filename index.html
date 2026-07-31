@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OP Casos — Controle de Processos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">OP</span>
+    <div class="brand-text">
+      <h1>Controle de Processos</h1>
+      <span class="brand-sub" id="recordCount">carregando…</span>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <label class="btn btn-ghost" for="fileInput">
+      Importar XLSX
+      <input type="file" id="fileInput" accept=".xlsx" hidden>
+    </label>
+    <button class="btn btn-ghost" id="exportBtn">Exportar tudo</button>
+    <button class="btn btn-ghost" id="exportFilteredBtn">Exportar filtrado</button>
+    <button class="btn btn-ghost" id="resetBtn" title="Restaurar dados originais do arquivo carregado">Restaurar dados originais</button>
+  </div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="casos">Casos Ativos <span class="tab-count" id="countCasos">0</span></button>
+  <button class="tab" data-tab="log">Histórico <span class="tab-count" id="countLog">0</span></button>
+</nav>
+
+<main>
+  <section class="toolbar">
+    <div class="search-row">
+      <input type="search" id="searchInput" placeholder="Buscar por processo, autor ou observações…" class="search-input">
+      <button class="btn btn-ghost btn-sm" id="clearFiltersBtn">Limpar filtros</button>
+      <button class="btn btn-ghost btn-sm" id="columnsBtn">Colunas</button>
+    </div>
+    <div class="filters-row" id="filtersRow">
+      <select id="filterStatus"><option value="">Status: Todos</option></select>
+      <select id="filterInstituicao"><option value="">Instituição: Todas</option></select>
+      <select id="filterComarca"><option value="">Comarca: Todas</option></select>
+      <select id="filterAdvogado"><option value="">Advogado: Todos</option></select>
+      <label class="date-filter">Entrada de
+        <input type="date" id="filterEntradaFrom">
+      </label>
+      <label class="date-filter">até
+        <input type="date" id="filterEntradaTo">
+      </label>
+      <label class="date-filter">Prazo de
+        <input type="date" id="filterPrazoFrom">
+      </label>
+      <label class="date-filter">até
+        <input type="date" id="filterPrazoTo">
+      </label>
+    </div>
+  </section>
+
+  <div class="columns-panel" id="columnsPanel" hidden>
+    <div class="columns-panel-header">
+      <strong>Colunas visíveis</strong>
+      <div>
+        <button class="btn btn-ghost btn-sm" id="colsAllBtn">Todas</button>
+        <button class="btn btn-ghost btn-sm" id="colsDefaultBtn">Padrão</button>
+      </div>
+    </div>
+    <div class="columns-grid" id="columnsGrid"></div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="dataTable">
+      <thead><tr id="tableHeadRow"></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" hidden>Nenhum processo encontrado com os filtros atuais.</div>
+  </div>
+
+  <div class="pagination" id="pagination"></div>
+</main>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
